@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 2019_11_27_201951) do
 
   create_table "cards", force: :cascade do |t|
     t.bigint "board_column_id", null: false
+    t.string "job_title"
+    t.string "company"
+    t.string "company_url"
+    t.string "company_logo"
+    t.string "url"
+    t.string "location"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["board_column_id"], name: "index_cards_on_board_column_id"
