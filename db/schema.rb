@@ -10,31 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_195228) do
+ActiveRecord::Schema.define(version: 2019_11_27_201951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "columns", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "columns_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "column_id", null: false
-    t.string "job_title"
-    t.string "company"
-    t.string "company_url"
-    t.string "company_logo"
-    t.string "location"
-    t.string "description"
-    t.index ["column_id"], name: "index_columns_users_on_column_id"
-    t.index ["user_id"], name: "index_columns_users_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "applicants", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -43,4 +24,21 @@ ActiveRecord::Schema.define(version: 2019_11_27_195228) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "board_columns", force: :cascade do |t|
+    t.bigint "applicant_id", null: false
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["applicant_id"], name: "index_board_columns_on_applicant_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.bigint "board_column_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_column_id"], name: "index_cards_on_board_column_id"
+  end
+
+  add_foreign_key "board_columns", "applicants"
+  add_foreign_key "cards", "board_columns"
 end

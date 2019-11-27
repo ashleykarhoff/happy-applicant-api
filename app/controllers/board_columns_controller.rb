@@ -1,0 +1,2 @@
+class BoardColumnsController < ApplicationController
+end
